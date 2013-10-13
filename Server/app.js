@@ -12,7 +12,7 @@ var express = require('express')
 var app = express(), db;
 
 app.configure(function () {
-  db = mongojs(process.env.MONGOLAB_URI || 'twitterproto', ['tweets', 'following']);
+  db = mongojs(process.env.MONGOLAB_URI || 'linked', ['students']);
   app.set('port', process.env.PORT || 3000);
   app.set('views', __dirname + '/views');
   app.set('view engine', 'jade');
@@ -38,31 +38,31 @@ app.configure('development', function () {
 });
 
 app.configure('production', function () {
-  app.set('host', 'twitterproto.herokuapp.com');
+  app.set('host', 'olin-linked.herokuapp.com');
 });
 
 /**
  * Helpful
  */
 
-function validateuid (name) {
-  return String(name).substr(0, 15);
-}
-
-function validateTweet (tweet) {
-  return String(tweet).substr(0, 140);
-}
+RegExp.escape= function(s) {
+  return s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')
+};
 
 /**
  * Routes
  */
 
-RegExp.escape= function(s) {
-    return s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')
-};
-
 app.get('/:uid', function (req, res) {
-  db.students.find({uid: req.params.uid}).exec(function (err, schedule) {
-    res.json(schedule);
+  db.students.findOne({uid: req.params.uid}, function (err, student) {
+    res.json(student.classes);
   })
+});
+
+/**
+ * Launch
+ */
+
+http.createServer(app).listen(app.get('port'), function(){
+  console.log("Express server listening on http://" + app.get('host'));
 });
