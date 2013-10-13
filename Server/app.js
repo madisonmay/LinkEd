@@ -55,7 +55,11 @@ RegExp.escape= function(s) {
 
 app.get('/:uid', function (req, res) {
   db.students.findOne({uid: req.params.uid}, function (err, student) {
-    res.json(student.classes);
+    if (student) {
+      res.json(student.classes);
+    } else {
+      res.json({});
+    }
   })
 });
 
