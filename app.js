@@ -12,7 +12,8 @@ var express = require('express')
 var app = express(), db;
 
 app.configure(function () {
-  db = mongojs(process.env.MONGOLAB_URI || 'twitterproto', ['tweets', 'following']);
+  console.log(process.env.MONGOLAB_URI);
+  db = mongojs(process.env.MONGOLAB_URI || 'linked', ['students']);
   app.set('port', process.env.PORT || 3000);
   app.set('views', __dirname + '/views');
   app.set('view engine', 'jade');
@@ -25,7 +26,7 @@ app.configure(function () {
   app.use(express.session({
     secret: app.get('secret'),
     store: new MongoStore({
-      url: process.env.MONGOLAB_URI || 'mongodb://localhost/twitterproto'
+      url: process.env.MONGOLAB_URI || 'mongodb://localhost/linked'
     })
   }));
   app.use(app.router);
