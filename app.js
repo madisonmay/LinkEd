@@ -38,7 +38,7 @@ app.configure('development', function () {
 });
 
 app.configure('production', function () {
-  app.set('host', 'twitterproto.herokuapp.com');
+  app.set('host', 'olin-linked.herokuapp.com');
 });
 
 /**
