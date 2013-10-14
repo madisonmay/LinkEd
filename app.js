@@ -47,11 +47,15 @@ app.configure('production', function () {
  */
 
 app.get('/:uid', function (req, res) {
-  db.students.findOne({uid: req.params.uid}, function (err, student) {
+  console.log(req.params.uid);
+  db.students.findOne({uid: req.params.uid}, function (student, err) {
+    console.log(err);
+    console.log(student);
     if (student) {
       res.json(student.classes);
     } else {
       res.json({});
+    }
     }
   })
 });
