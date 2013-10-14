@@ -56,7 +56,6 @@ app.get('/:uid', function (req, res) {
     } else {
       res.json({});
     }
-    }
   })
 });
 
