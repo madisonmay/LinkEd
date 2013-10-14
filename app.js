@@ -48,9 +48,9 @@ app.configure('production', function () {
 
 app.get('/:uid', function (req, res) {
   console.log(req.params.uid);
-  db.students.findOne({uid: req.params.uid}, function (student, err) {
-    console.log(err);
-    console.log(student);
+  db.students.findOne({'uid': parseInt(req.params.uid)}, function (student, err) {
+    console.log("error: ", err);
+    console.log("student: ", err);
     if (student) {
       res.json(student.classes);
     } else {
