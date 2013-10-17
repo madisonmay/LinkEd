@@ -50,7 +50,7 @@ app.get('/:uid', function (req, res) {
   console.log(req.params.uid);
   db.students.findOne({'uid': parseInt(req.params.uid)}, function (err, student) {
     if (student) {
-      res.json(student.classes);
+      res.json(student);
     } else {
       res.json({});
     }
